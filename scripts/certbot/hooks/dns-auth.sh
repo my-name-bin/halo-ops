@@ -1,0 +1,32 @@
+#!/bin/bash
+# ============================================
+# 脚本名称: dns-auth.sh
+# 功能描述: DNSPod DNS 认证钩子（添加 TXT 记录）
+# 创建日期: 2026-05-31
+# 版本信息: v1.0.0
+# 使用说明: certbot 会自动调用此脚本
+# ============================================
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/../../../" && pwd)"
+
+LOG_FILE="$PROJECT_DIR/logs/halo/halo-cert-renew.log"
+
+# 初始化日志
+mkdir -p "$(dirname "$LOG_FILE")"
+
+log_info() {
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    echo "[INFO] $timestamp - 添加 DNS TXT 记录: $CERTBOT_DOMAIN -> $CERTBOT_VALIDATION" >> "$LOG_FILE"
+}
+
+log_info
+
+# 这里是 DNSPod 的认证逻辑（简化版）
+# 实际应该调用 DNSPod API
+echo "模拟添加 TXT 记录: _acme-challenge.$CERTBOT_DOMAIN TXT $CERTBOT_VALIDATION" >> "$LOG_FILE"
+
+# 等待 DNS 传播
+sleep 30

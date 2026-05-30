@@ -1,0 +1,90 @@
+# ============================================
+# .gitignore - Git 忽略文件
+# ============================================
+
+# 环境变量（包含敏感信息）
+.env
+.env.local
+.env.*.local
+
+# 备份文件
+*.bak
+*.backup
+*.old
+
+# 压缩包
+*.tar
+*.tar.gz
+*.zip
+*.tgz
+
+# 临时文件
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 日志文件和日志目录
+*.log
+logs/**
+data/app/logs/**
+
+# 数据库文件和备份
+db/**
+!db/backups/.gitkeep
+
+# 应用数据
+data/app/**
+data/plugins/**
+data/themes/**
+data/attachments/**
+data/backups/**
+
+# SSL 证书（生产环境，不要上传）
+ssl/**
+
+# Docker 镜像文件
+images/**
+
+# 备份目录
+backups/**
+
+# Docker 相关
+.dockerignore
+
+# IDE 配置
+.idea/
+.vscode/
+*.iml
+
+# 节点模块（如果有）
+node_modules/
+
+# Python（如果有）
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Java（如果有）
+*.class
+*.jar
+*.war
+*.ear
+
+# Gradle（如果有）
+.gradle/
+build/
+
+# Maven（如果有）
+target/
+
+# 系统文件
+Thumbs.db
+.DS_Store
+
+# Trae AI 临时目录
+.trae/
