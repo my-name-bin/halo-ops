@@ -45,6 +45,53 @@ log_error() {
     echo "[ERROR] $timestamp - $1" >> "$LOG_FILE"
 }
 
+log_warning() {
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    echo -e "\033[0;33m[WARNING]\033[0m $timestamp - $1"
+    echo "[WARNING] $timestamp - $1" >> "$LOG_FILE"
+}
+
+# ============================================
+# 检查并安装 certbot
+# ============================================
+
+check_and_install_certbot() {
+    if command -v certbot &> /dev/null; then
+        log_info "certbot 已安装: $(certbot --version)"
+        return 0
+    fi
+
+    log_warning "certbot 未安装，开始自动安装..."
+
+    # 检测包管理器
+    if command -v apt-get &> /dev/null; then
+        log_info "检测到 Debian/Ubuntu 系统，使用 apt-get 安装..."
+        apt-get update
+        apt-get install -y certbot
+    elif command -v yum &> /dev/null; then
+        log_info "检测到 CentOS/RHEL 系统，使用 yum 安装..."
+        yum install -y epel-release
+        yum install -y certbot
+    elif command -v dnf &> /dev/null; then
+        log_info "检测到 Fedora 系统，使用 dnf 安装..."
+        dnf install -y certbot
+    elif command -v pacman &> /dev/null; then
+        log_info "检测到 Arch Linux 系统，使用 pacman 安装..."
+        pacman -S --noconfirm certbot
+    else
+        log_error "无法检测到包管理器，请手动安装 certbot"
+        exit 1
+    fi
+
+    # 验证安装
+    if command -v certbot &> /dev/null; then
+        log_success "certbot 安装成功: $(certbot --version)"
+    else
+        log_error "certbot 安装失败，请手动安装"
+        exit 1
+    fi
+}
+
 # ============================================
 # 续期证书
 # ============================================
@@ -69,6 +116,9 @@ fi
 
 # 设置执行权限
 chmod +x "$DNSPOD_AUTH_SCRIPT" "$DNSPOD_CLEANUP_SCRIPT" "$DEPLOY_HOOK_SCRIPT"
+
+# 检查并安装 certbot
+check_and_install_certbot
 
 # 使用 certbot 续期证书
 log_info "运行 certbot renew 命令..."
