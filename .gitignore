@@ -88,3 +88,8 @@ Thumbs.db
 
 # Trae AI 临时目录
 .trae/
+
+# 文档文件（仅保留根目录的 README.md）
+docs/*.md
+issue_tracker/*.md
+项目结构说明.md
