@@ -11,7 +11,7 @@ services:
   # 功能：博客系统核心，处理所有业务逻辑
   # ==========================================
   halo:
-    image: halohub/halo:2.24.0
+    image: halohub/halo:2.24.2
     container_name: halo-app
     restart: unless-stopped
     depends_on:
