@@ -119,7 +119,7 @@ DB_NAME=halo
 # ============================================
 # Halo 应用配置
 # ============================================
-HALO_EXTERNAL_URL=https://your-domain.com/    # 您的博客域名
+HALO_EXTERNAL_URL=https://gb.aace.cc/    # 您的博客域名
 HALO_JVM_XMX=384m
 HALO_JVM_XMS=384m
 
@@ -132,7 +132,7 @@ DNSPOD_API_TOKEN=your_dnspod_api_token  # 从 DNSPod 控制台获取
 # ============================================
 # SSL 证书配置
 # ============================================
-DOMAIN=*.your-domain.com                # 您的域名（支持通配符）
+DOMAIN=*.gb.aace.cc                # 您的域名（支持通配符）
 EMAIL=your_email@example.com            # 用于接收证书续期通知
 ```
 
@@ -142,14 +142,14 @@ EMAIL=your_email@example.com            # 用于接收证书续期通知
 
 1. 登录您的域名注册商（如 DNSPod、阿里云等）
 2. 添加 DNS 记录：
-   - **A 记录**：`your-domain.com` → 您的服务器 IP
-   - **A 记录**：`www.your-domain.com` → 您的服务器 IP
-   - （如果使用通配符证书）**CNAME 记录**：`*.your-domain.com` → `your-domain.com`
+   - **A 记录**：`gb.aace.cc` → 您的服务器 IP
+   - **A 记录**：`www.gb.aace.cc` → 您的服务器 IP
+   - （如果使用通配符证书）**CNAME 记录**：`*.gb.aace.cc` → `gb.aace.cc`
 
 3. 验证 DNS 解析：
    ```bash
-   nslookup your-domain.com
-   ping your-domain.com
+   nslookup gb.aace.cc
+   ping gb.aace.cc
    ```
 
 ### 5. DNSPod API 凭据获取（用于 SSL 证书）
@@ -220,7 +220,7 @@ make logs
 
 ### 访问博客
 
-打开浏览器访问：`https://your-domain.com/`
+打开浏览器访问：`https://gb.aace.cc/`
 
 首次访问时，Halo 会引导您完成初始化设置。
 
@@ -364,7 +364,7 @@ make logs
 
 - **维护者**: guobin
 - **项目地址**: https://github.com/my-name-bin/halo-ops
-- **博客地址**: https://your-domain.com/
+- **博客地址**: https://gb.aace.cc/
 
 ---
 
