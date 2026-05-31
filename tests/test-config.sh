@@ -132,7 +132,18 @@ test_nginx_config() {
 test_ssl_certificates() {
     log_info "测试 SSL 证书..."
 
+    # 先尝试主要域名，不行就用默认域名
     local cert_dir="${PROJECT_DIR}/ssl/live/${PRIMARY_DOMAIN:-aace.cc}"
+    if [[ ! -f "${cert_dir}/fullchain.pem" ]]; then
+        cert_dir="${PROJECT_DIR}/ssl/live/aace.cc"
+    fi
+    
+    # 再次检查，确保找到证书
+    if [[ ! -f "${cert_dir}/fullchain.pem" ]]; then
+        log_error "SSL 证书文件缺失: fullchain.pem"
+        return 1
+    fi
+    
     local required_files=("fullchain.pem" "privkey.pem")
 
     for file in "${required_files[@]}"; do
@@ -182,11 +193,20 @@ print_summary() {
     print_bold "配置测试汇总"
     print_bold "========================================"
 
+    local cert_ok=0
+    local cert_dir="${PROJECT_DIR}/ssl/live/${PRIMARY_DOMAIN:-aace.cc}"
+    if [[ ! -d "${cert_dir}" ]]; then
+        cert_dir="${PROJECT_DIR}/ssl/live/aace.cc"
+    fi
+    if [[ -f "${cert_dir}/fullchain.pem" ]]; then
+        cert_ok=1
+    fi
+
     echo "目录结构: ✓ 完整"
     echo "环境变量: $([[ -f "${PROJECT_DIR}/.env" ]] && echo '✓ 正常' || echo '✗ 缺失')"
     echo "PostgreSQL: $([ -f "${PROJECT_DIR}/config/database/postgres/postgresql.conf" ] && echo '✓ 正常' || echo '✗ 缺失')"
     echo "Nginx: $([ -f "${PROJECT_DIR}/config/nginx/nginx.conf" ] && echo '✓ 正常' || echo '✗ 缺失')"
-    echo "SSL 证书: $([[ -f "${PROJECT_DIR}/ssl/live/${PRIMARY_DOMAIN:-aace.cc}/fullchain.pem" ]] && echo '✓ 正常' || echo '✗ 缺失')"
+    echo "SSL 证书: $([[ $cert_ok -eq 1 ]] && echo '✓ 正常' || echo '✗ 缺失')"
 
     echo
     if [[ $failed -eq 0 ]]; then
@@ -204,6 +224,8 @@ main() {
     print_bold "\n========================================"
     print_bold "Halo 博客系统 - 配置测试"
     print_bold "========================================\n"
+    
+    load_env
 
     local failed=0
 
