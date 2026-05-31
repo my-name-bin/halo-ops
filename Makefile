@@ -41,6 +41,7 @@ help:
 	@echo "服务管理:"
 	@echo "  make start              启动所有服务"
 	@echo "  make stop              停止所有服务"
+	@echo "  make down              停止并移除所有服务"
 	@echo "  make restart           重启所有服务"
 	@echo "  make status            查看服务状态"
 	@echo ""
@@ -105,6 +106,13 @@ stop:
 	@$(call print_title,停止服务)
 	cd $(PROJECT_DIR) && docker-compose stop
 	@printf "\033[0;32m✓ 服务已停止\033[0m\n"
+
+.PHONY: down
+down:
+	@$(call print_title,停止并移除服务)
+	@printf "\033[0;33m警告: 这将停止并移除所有容器\033[0m\n"
+	cd $(PROJECT_DIR) && docker-compose down
+	@printf "\033[0;32m✓ 所有服务已停止并移除\033[0m\n"
 
 .PHONY: restart
 restart:
