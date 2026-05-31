@@ -89,6 +89,6 @@ Thumbs.db
 # Trae AI 临时目录
 .trae/
 
-# 文档文件（保留主要文档，移除issue_tracker）
-issue_tracker/*.md
+# 文档文件（保留主要文档和issue_tracker）
+# issue_tracker/*.md
 项目结构说明.md
