@@ -27,18 +27,16 @@ NC := \033[0m
 
 # 打印函数
 define print_title
-echo ""
-echo -e "$(BLUE)========================================$(NC)"
-echo -e "$(BLUE)$$1$(NC)"
-echo -e "$(BLUE)========================================$(NC)"
-echo ""
+@printf "\n\033[0;34m========================================\033[0m\n"
+@printf "\033[0;34m%s\033[0m\n" "$(1)"
+@printf "\033[0;34m========================================\033[0m\n\n"
 endef
 
 # 默认目标
 .PHONY: help
 help:
 	@echo ""
-	@echo -e "$(BLUE)Halo 博客系统 - 可用命令$(NC)"
+	@printf "\033[0;34mHalo 博客系统 - 可用命令\033[0m\n"
 	@echo ""
 	@echo "服务管理:"
 	@echo "  make start              启动所有服务"
@@ -100,19 +98,19 @@ help:
 start:
 	@$(call print_title,启动服务)
 	cd $(PROJECT_DIR) && docker-compose up -d
-	@echo -e "$(GREEN)✓ 服务已启动$(NC)"
+	@printf "\033[0;32m✓ 服务已启动\033[0m\n"
 
 .PHONY: stop
 stop:
 	@$(call print_title,停止服务)
 	cd $(PROJECT_DIR) && docker-compose stop
-	@echo -e "$(GREEN)✓ 服务已停止$(NC)"
+	@printf "\033[0;32m✓ 服务已停止\033[0m\n"
 
 .PHONY: restart
 restart:
 	@$(call print_title,重启服务)
 	cd $(PROJECT_DIR) && docker-compose restart
-	@echo -e "$(GREEN)✓ 服务已重启$(NC)"
+	@printf "\033[0;32m✓ 服务已重启\033[0m\n"
 
 .PHONY: status
 status:
@@ -123,19 +121,19 @@ status:
 restart-db:
 	@$(call print_title,重启数据库)
 	cd $(PROJECT_DIR) && docker-compose restart halodb
-	@echo -e "$(GREEN)✓ 数据库已重启$(NC)"
+	@printf "\033[0;32m✓ 数据库已重启\033[0m\n"
 
 .PHONY: restart-halo
 restart-halo:
 	@$(call print_title,重启 Halo 应用)
 	cd $(PROJECT_DIR) && docker-compose restart halo
-	@echo -e "$(GREEN)✓ Halo 应用已重启$(NC)"
+	@printf "\033[0;32m✓ Halo 应用已重启\033[0m\n"
 
 .PHONY: restart-nginx
 restart-nginx:
 	@$(call print_title,重启 Nginx)
 	cd $(PROJECT_DIR) && docker-compose exec -T nginx nginx -s reload
-	@echo -e "$(GREEN)✓ Nginx 已重载$(NC)"
+	@printf "\033[0;32m✓ Nginx 已重载\033[0m\n"
 
 # ============================================
 # 日志管理
@@ -162,25 +160,25 @@ logs-db:
 .PHONY: backup
 backup: backup-db backup-app backup-ssl
 	@$(call print_title,全量备份)
-	@echo -e "$(GREEN)✓ 全量备份完成$(NC)"
+	@printf "\033[0;32m✓ 全量备份完成\033[0m\n"
 
 .PHONY: backup-db
 backup-db:
 	@$(call print_title,备份数据库)
 	@bash $(SCRIPTS_BACKUP)/backup-database.sh
-	@echo -e "$(GREEN)✓ 数据库备份完成$(NC)"
+	@printf "\033[0;32m✓ 数据库备份完成\033[0m\n"
 
 .PHONY: backup-app
 backup-app:
 	@$(call print_title,备份应用数据)
 	@bash $(SCRIPTS_BACKUP)/backup-app.sh
-	@echo -e "$(GREEN)✓ 应用数据备份完成$(NC)"
+	@printf "\033[0;32m✓ 应用数据备份完成\033[0m\n"
 
 .PHONY: backup-ssl
 backup-ssl:
 	@$(call print_title,备份 SSL 证书)
 	@bash $(SCRIPTS_BACKUP)/backup-ssl.sh
-	@echo -e "$(GREEN)✓ SSL 证书备份完成$(NC)"
+	@printf "\033[0;32m✓ SSL 证书备份完成\033[0m\n"
 
 # ============================================
 # 维护
@@ -194,13 +192,13 @@ health:
 clean-logs:
 	@$(call print_title,清理日志)
 	@bash $(SCRIPTS_MAINTENANCE)/cleanup-logs.sh
-	@echo -e "$(GREEN)✓ 日志清理完成$(NC)"
+	@printf "\033[0;32m✓ 日志清理完成\033[0m\n"
 
 .PHONY: clean-docker
 clean-docker:
 	@$(call print_title,清理 Docker 资源)
 	@bash $(SCRIPTS_MAINTENANCE)/cleanup-docker.sh
-	@echo -e "$(GREEN)✓ Docker 资源清理完成$(NC)"
+	@printf "\033[0;32m✓ Docker 资源清理完成\033[0m\n"
 
 # ============================================
 # 初始化
@@ -229,7 +227,7 @@ cert-renew:
 .PHONY: test
 test: test-config
 	@$(call print_title,测试结果)
-	@echo -e "$(GREEN)✓ 所有测试通过$(NC)"
+	@printf "\033[0;32m✓ 所有测试通过\033[0m\n"
 
 .PHONY: test-config
 test-config:
@@ -260,16 +258,16 @@ clean:
 	@read -p "确定要删除所有容器和数据卷吗？(y/N): " confirm; \
 	if [ "$$confirm" = "y" ] || [ "$$confirm" = "Y" ]; then \
 		cd $(PROJECT_DIR) && docker-compose down -v; \
-		echo -e "$(GREEN)✓ 清理完成$(NC)"; \
+		printf "\033[0;32m✓ 清理完成\033[0m\n"; \
 	else \
-		echo -e "$(YELLOW)取消清理$(NC)"; \
+		printf "\033[0;33m取消清理\033[0m\n"; \
 	fi
 
 .PHONY: prune
 prune:
 	@$(call print_title,清理未使用的 Docker 资源)
 	@docker system prune -f
-	@echo -e "$(GREEN)✓ 清理完成$(NC)"
+	@printf "\033[0;32m✓ 清理完成\033[0m\n"
 
 # ============================================
 # 镜像管理
@@ -296,7 +294,7 @@ images-load:
 			docker load -i "$$image"; \
 		fi; \
 	done
-	@echo -e "$(GREEN)✓ 镜像加载完成$(NC)"
+	@printf "\033[0;32m✓ 镜像加载完成\033[0m\n"
 
 .PHONY: images-save
 images-save:
@@ -308,7 +306,7 @@ images-save:
 	@docker save -o $(IMAGES_DIR)/nginx-1.27-alpine.tar nginx:1.27-alpine
 	@echo "保存 PostgreSQL 镜像..."
 	@docker save -o $(IMAGES_DIR)/postgres-15.4.tar postgres:15.4
-	@echo -e "$(GREEN)✓ 镜像保存完成$(NC)"
+	@printf "\033[0;32m✓ 镜像保存完成\033[0m\n"
 	@ls -lh $(IMAGES_DIR)
 
 # ============================================
