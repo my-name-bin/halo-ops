@@ -134,7 +134,7 @@ check_network() {
 check_ssl_certificate() {
     log_info "检查 SSL 证书..."
 
-    local cert_file="${PROJECT_DIR}/ssl/live/aace.cc/fullchain.pem"
+    local cert_file="${PROJECT_DIR}/ssl/live/${PRIMARY_DOMAIN:-aace.cc}/fullchain.pem"
 
     if [[ ! -f "$cert_file" ]]; then
         log_warning "SSL 证书文件不存在"

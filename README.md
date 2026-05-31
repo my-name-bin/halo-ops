@@ -364,7 +364,7 @@ make logs
 
 - **维护者**: guobin
 - **项目地址**: https://github.com/my-name-bin/halo-ops
-- **博客地址**: https://gb.aace.cc/
+- **博客地址**: https://your-domain.com/
 
 ---
 

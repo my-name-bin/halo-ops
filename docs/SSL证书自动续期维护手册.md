@@ -133,7 +133,7 @@ openssl x509 -in /data/halo/ssl/live/aace.cc/fullchain.pem -noout -issuer
 ```
 
 **方法三：在线检查**
-- [SSL Labs](https://www.ssllabs.com/ssltest/analyze.html?d=gb.aace.cc)
+- [SSL Labs](https://www.ssllabs.com/ssltest/analyze.html?d=your-domain.com)
 - [MySSL](https://myssl.com/)
 
 ### 3.2 手动续期证书
@@ -516,7 +516,7 @@ fi
 **续期后验证**：
 - [ ] 证书文件已更新
 - [ ] Nginx 配置正确
-- [ ] 网站可访问（https://gb.aace.cc）
+- [ ] 网站可访问（https://your-domain.com）
 - [ ] SSL 评级正常（A 或以上）
 - [ ] 日志无错误
 

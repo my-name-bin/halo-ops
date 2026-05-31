@@ -40,7 +40,7 @@ log_info "部署钩子开始执行..."
 # 部署证书到 Nginx 配置目录
 log_info "部署证书到 Nginx 目录..."
 
-CERT_DIR="$PROJECT_DIR/ssl/live/aace.cc"
+CERT_DIR="$PROJECT_DIR/ssl/live/${PRIMARY_DOMAIN:-aace.cc}"
 NGINX_CERT_DIR="$PROJECT_DIR/config/nginx/certs"
 
 mkdir -p "$NGINX_CERT_DIR"

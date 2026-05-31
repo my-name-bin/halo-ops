@@ -59,7 +59,7 @@ create_backup_directory() {
 
 backup_ssl() {
     local timestamp=$(get_timestamp)
-    local cert_dir="${PROJECT_DIR}/ssl/live/aace.cc"
+    local cert_dir="${PROJECT_DIR}/ssl/live/${PRIMARY_DOMAIN:-aace.cc}"
     local backup_name="ssl_${timestamp}.tar.gz"
     local backup_file="${BACKUP_DIR}/${backup_name}"
 

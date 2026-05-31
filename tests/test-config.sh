@@ -132,7 +132,7 @@ test_nginx_config() {
 test_ssl_certificates() {
     log_info "测试 SSL 证书..."
 
-    local cert_dir="${PROJECT_DIR}/ssl/live/aace.cc"
+    local cert_dir="${PROJECT_DIR}/ssl/live/${PRIMARY_DOMAIN:-aace.cc}"
     local required_files=("fullchain.pem" "privkey.pem")
 
     for file in "${required_files[@]}"; do
@@ -186,7 +186,7 @@ print_summary() {
     echo "环境变量: $([[ -f "${PROJECT_DIR}/.env" ]] && echo '✓ 正常' || echo '✗ 缺失')"
     echo "PostgreSQL: $([ -f "${PROJECT_DIR}/config/database/postgres/postgresql.conf" ] && echo '✓ 正常' || echo '✗ 缺失')"
     echo "Nginx: $([ -f "${PROJECT_DIR}/config/nginx/nginx.conf" ] && echo '✓ 正常' || echo '✗ 缺失')"
-    echo "SSL 证书: $([[ -f "${PROJECT_DIR}/ssl/live/aace.cc/fullchain.pem" ]] && echo '✓ 正常' || echo '✗ 缺失')"
+    echo "SSL 证书: $([[ -f "${PROJECT_DIR}/ssl/live/${PRIMARY_DOMAIN:-aace.cc}/fullchain.pem" ]] && echo '✓ 正常' || echo '✗ 缺失')"
 
     echo
     if [[ $failed -eq 0 ]]; then
