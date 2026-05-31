@@ -2,6 +2,8 @@
 
 > 基于 Docker Compose 部署的生产级博客系统
 
+**Halo 官网**: https://halo.run
+
 ## 项目概述
 
 Halo 博客系统是一个使用 Docker Compose 部署的生产级博客解决方案，集成了 PostgreSQL 数据库、Nginx 反向代理和 Let's Encrypt SSL 证书自动化管理。
@@ -252,9 +254,9 @@ halo-ops/
 ├── scripts/                    # 运维脚本
 │   ├── init/                  # 初始化脚本
 │   ├── backup/                # 备份脚本
-│   ├── certbot/               # SSL 证书脚本
-│   ├── maintenance/           # 维护脚本
-│   └── utils/                 # 工具函数
+│   ├── certbot/                # SSL 证书脚本
+│   ├── maintenance/            # 维护脚本
+│   └── utils/                  # 工具函数
 │
 ├── docs/                       # 详细文档
 │   ├── 项目说明.md
