@@ -66,7 +66,11 @@ backup_ssl() {
     log_info "开始备份 SSL 证书..."
 
     if [ ! -d "$cert_dir" ]; then
-        log_error "SSL 证书目录不存在: $cert_dir"
+        cert_dir="${PROJECT_DIR}/ssl/live/aace.cc"
+    fi
+
+    if [ ! -d "$cert_dir" ]; then
+        log_error "SSL 证书目录不存在"
         return 1
     fi
 

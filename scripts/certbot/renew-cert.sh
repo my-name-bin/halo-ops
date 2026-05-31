@@ -16,7 +16,6 @@ PROJECT_DIR="$(cd "$SCRIPT_DIR/../../" && pwd)"
 source "$PROJECT_DIR/scripts/utils/common.sh"
 
 readonly LOG_FILE="$PROJECT_DIR/logs/halo/halo-cert-renew.log"
-readonly CERT_DIR="$PROJECT_DIR/ssl/live/${PRIMARY_DOMAIN:-aace.cc}"
 readonly DNSPOD_AUTH_SCRIPT="$PROJECT_DIR/scripts/certbot/hooks/dns-auth.sh"
 readonly DNSPOD_CLEANUP_SCRIPT="$PROJECT_DIR/scripts/certbot/hooks/dns-cleanup.sh"
 readonly DEPLOY_HOOK_SCRIPT="$PROJECT_DIR/scripts/certbot/deploy-hook.sh"

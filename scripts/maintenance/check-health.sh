@@ -88,9 +88,7 @@ check_halo_service() {
     log_info "检查 Halo 应用..."
 
     if is_service_running "halo"; then
-        local app_url="http://localhost:8090/actuator/health"
-
-        if check_http "$app_url" "200" 10; then
+        if docker-compose exec -T halo curl -f http://localhost:8090/actuator/health 2>/dev/null; then
             log_success "Halo 应用正常"
             return 0
         else
@@ -135,6 +133,10 @@ check_ssl_certificate() {
     log_info "检查 SSL 证书..."
 
     local cert_file="${PROJECT_DIR}/ssl/live/${PRIMARY_DOMAIN:-aace.cc}/fullchain.pem"
+
+    if [[ ! -f "$cert_file" ]]; then
+        cert_file="${PROJECT_DIR}/ssl/live/aace.cc/fullchain.pem"
+    fi
 
     if [[ ! -f "$cert_file" ]]; then
         log_warning "SSL 证书文件不存在"

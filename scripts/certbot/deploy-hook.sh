@@ -41,6 +41,16 @@ log_info "部署钩子开始执行..."
 log_info "部署证书到 Nginx 目录..."
 
 CERT_DIR="$PROJECT_DIR/ssl/live/${PRIMARY_DOMAIN:-aace.cc}"
+
+if [ ! -d "$CERT_DIR" ]; then
+    CERT_DIR="$PROJECT_DIR/ssl/live/aace.cc"
+fi
+
+if [ ! -d "$CERT_DIR" ]; then
+    log_error "找不到 SSL 证书目录"
+    exit 1
+fi
+
 NGINX_CERT_DIR="$PROJECT_DIR/config/nginx/certs"
 
 mkdir -p "$NGINX_CERT_DIR"
