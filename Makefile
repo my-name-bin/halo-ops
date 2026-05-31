@@ -329,6 +329,7 @@ docs:
 	@echo "  - 项目结构说明.md      - 项目结构文档"
 	@echo "  - SSL证书自动续期维护手册.md - SSL 证书维护"
 	@echo "  - Makefile初学者学习指南.md - Makefile 学习文档"
+	@echo "  - docs/PostgreSQL实操手册.md - PostgreSQL 数据库操作指南"
 
 # ============================================
 # 特殊目标
